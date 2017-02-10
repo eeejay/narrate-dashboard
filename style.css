@@ -5,22 +5,15 @@ body {
 }
 
 section {
-  display: flex;
-  flex-wrap: wrap;
+  max-width: 1200px;
 }
 
-section {
-  max-width: 1200px;
+.summary span {
+  font-weight: 700;
 }
 
 .desc {
   width: 40%;
-}
-
-.ct-chart {
-  margin: 20px;
-  width: calc(60% - 40px);
-  min-width: 550px;
 }
 
 .ct-chart svg {
@@ -57,4 +50,25 @@ body.loading main {
 
 body:not(.loading) #loading {
   display: none;
+}
+
+figure {
+  margin-top: 4rem;
+}
+
+figcaption {
+  position: absolute;
+  top: -2rem;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px dashed #aaa;
+}
+
+#topFails > svg {
+  left: 10%;
+  top: 10%;
+}
+
+label {
+  display: inline;
 }

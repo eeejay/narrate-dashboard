@@ -4,57 +4,75 @@
 <title>Narrate Dashboard</title>
 <link rel="stylesheet" href="chartist.min.css">
 <link rel="stylesheet" href="chartist-plugin-tooltip.css">
+<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="normalize.css">
+<link rel="stylesheet" href="skeleton.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="loading">
-  <header>
-    <h1>Narrate Dashboard</h1>
+  <div class="container">
+    <header>
+      <h1>Narrate Dashboard</h1>
 
-    <div>
-      <label for="channel">Channel:</label>
-      <select id="channel">
-        <option value="release">Release</option>
-        <option value="beta" selected>Beta</option>
-        <option value="aurora">Aurora</option>
-        <option value="nightly">Nightly</option>
-      </select>
-    </div>
-  </header>
+      <div>
+        <label for="channel">Channel:</label>
+        <select id="channel">
+          <option value="release">Release</option>
+          <option value="beta" selected>Beta</option>
+          <option value="aurora">Aurora</option>
+          <option value="nightly">Nightly</option>
+        </select>
+      </div>
+    </header>
 
-  <p id="loading">Loading...</p>
-  <main>
-    <h2>Language Support</h2>
-
-    <a id="csvlink" href="#" hidden>Download CSV</a>
-
-    <section id="topLangs">
-      <div class="desc">
-        <h3>Reader Mode Usage</h3>
+    <p id="loading">Loading...</p>
+    <main>
+      <h2>Executive Summary</h2>
+      <section class="summary">
         <p>
-          This is the distribution of reader mode usage by content language.
+          In <span id="channelName"></span> <span id="version"></span>,
+          Reader Mode was opened <span id="rmUsageTotal"></span> times.
+          The most popular content language is <span id="rmTopLang"></span>.
         </p>
-      </div>
-      <div class="ct-chart ct-golden-section"></div>
-    </section>
+        <p>
+          Narrate was offered to <span id="nSuccessRate"></span> of Reader Mode users.
+          The largest share of users who were not offered Narrate were viewing content in
+          <span id="nMostFailedLang"></span>. Narrate was disabled most likely because
+            of a lack of speech synthesis support for that language on the user's platform.
+        </p>
+        <p>
+          Narrate was activated <span id="nUsageTotal"></span> times.
+            It was deactivated within 10 seconds in <span id="nUnderSecondShare"></span>
+            of cases. Users allowed narration to continue for over a minute in
+            <span id="nOverMinuteShare"></span> of cases.
+        </p>
+      </section>
 
-    <section id="topFails">
-      <div class="desc">
-        <h3>Top Failed</h3>
-        <p>This is a breakup of lack of Narrate support by language.</p>
-      </div>
-      <div class="ct-chart ct-perfect-fourth"></div>
-    </section>
+      <h2>Language Support</h2>
+      <section>
+        <p>
+          <a id="csvlink" href="#">Download CSV</a>
+        </p>
 
-    <h2>Narrate Usage</h2>
+        <figure id="topLangs" class="ct-chart ct-golden-section">
+          <figcaption>This is the distribution of reader mode usage by content language.</figcaption>
+        </figure>
 
-    <section id="narrateSpeakTime">
-      <div class="desc">
-        <h3>Narrate Speak Time</h3>
-        <p>This represents the amount of time users listen to Narrate.</p>
-      </div>
-      <div class="ct-chart ct-perfect-fourth"></div>
-    </section>
-  </main>
+        <figure id="topFails" class="ct-chart ct-golden-section">
+          <figcaption>This is a breakup of lack of Narrate support by language.</figcaption>
+        </figure>
+      </section>
+
+      <h2>Narrate Usage</h2>
+
+      <section>
+
+        <figure id="narrateSpeakTime" class="ct-chart ct-perfect-fourth">
+          <figcaption>This represents the amount of time users listen to Narrate.</figcaption>
+        </figure>
+      </section>
+    </main>
+  </div>
 
   <script src="chartist.min.js"></script>
   <script src="chartist-plugin-accessibility.min.js"></script>
