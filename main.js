@@ -222,7 +222,12 @@ function currentVersions() {
 }
 
 function evolutionToStats(evolution) {
-  let entries = Object.entries(evolution);
+  let entries = Object.entries(evolution).filter(e => {
+    // Clear some junk values.. Bug 1342122
+    let hist = e[1].histogram();
+    return !hist.values[2] && !hist.values[3] && !hist.values[4];
+  });
+
   let totalReaderUsage = entries.reduce(
     (a, b) => {
       return a + b[(1)].histogram().values[(0)];
