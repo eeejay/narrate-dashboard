@@ -44,11 +44,15 @@ header {
   align-items: flex-start;
 }
 
-body.loading main {
+body.loading main, body.nodata main {
   display: none;
 }
 
 body:not(.loading) #loading {
+  display: none;
+}
+
+body:not(.nodata) #nodata {
   display: none;
 }
 

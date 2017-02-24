@@ -281,6 +281,7 @@ function getEvolution(channel, version, metric) {
 
 function main() {
   document.body.classList.add("loading");
+  document.body.classList.remove("nodata");
   var channel = location.hash
     ? location.hash.substr(1)
     : document.getElementById("channel").value;
@@ -293,6 +294,10 @@ function main() {
       ])
       .then(([ evoLang, evoSpeakTime ]) => {
         document.body.classList.remove("loading");
+        if (Object.keys(evoLang) == 0) {
+          document.body.classList.add("nodata");
+          return;
+        }
 
         let rmStats = evolutionToStats(evoLang);
         let nStats = evoSpeakTime[""].histogram();
