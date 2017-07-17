@@ -215,9 +215,8 @@ function currentVersions() {
   );
   return {
     nightly: nightly + "",
-    aurora: nightly - 1 + "",
-    beta: nightly - 2 + "",
-    release: nightly - 3 + ""
+    beta: nightly - 1 + "",
+    release: nightly - 2 + ""
   };
 }
 
