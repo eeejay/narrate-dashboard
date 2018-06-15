@@ -1,9 +1,3 @@
-document.getElementById("channel").addEventListener("change", onChannelChanged);
-function onChannelChanged(evt) {
-  location.hash = evt.target.value;
-  main();
-}
-
 var versions = {};
 
 function codeToName(code) {
@@ -142,7 +136,7 @@ function populateNarrateSpeakTime(stats) {
         }
         let seconds = Math.round(v / 1000);
         if (seconds && seconds % 5 == 0) {
-          return `${new Date(v).toLocaleFormat("%M:%S")}`;
+          return new Intl.DateTimeFormat('en-US', { minute: "numeric", second: "numeric" }).format(new Date(v));
         }
         return null;
       }
@@ -176,8 +170,7 @@ function populateSummary(channel, version, rmStats, nStats) {
     document.getElementById(id).textContent = text;
   }
 
-  let channelName = document.getElementById("channel").selectedOptions[0].textContent;
-  setText("channelName", channelName);
+  setText("channelName", channel);
   setText("version", version);
 
   let rmUsageTotal = rmStats.reduce((a, b) => a + b.rmCount, 0);
@@ -202,22 +195,6 @@ function populateSummary(channel, version, rmStats, nStats) {
 
   let nOverMinuteShare = nStats.values.slice(6).reduce((a, b) => a + b)/nUsageTotal;
   setText("nOverMinuteShare", (nOverMinuteShare*100).toFixed(1) + "%");
-}
-
-function currentVersions() {
-  var nightly = Number(
-    Telemetry
-      .getVersions()
-      .filter(version => version.startsWith("nightly"))
-      .map(versionString => versionString.split("/")[(1)])
-      .sort((a, b) => a - b)
-      .pop()
-  );
-  return {
-    nightly: nightly + "",
-    beta: nightly - 1 + "",
-    release: nightly - 2 + ""
-  };
 }
 
 function evolutionToStats(evolution) {
@@ -281,11 +258,10 @@ function getEvolution(channel, version, metric) {
 function main() {
   document.body.classList.add("loading");
   document.body.classList.remove("nodata");
-  var channel = location.hash
-    ? location.hash.substr(1)
-    : document.getElementById("channel").value;
+  var channel = "beta";
   initPromise.then(() => {
-    var version = currentVersions()[channel];
+    // Last working version..
+    var version = '59';
     Promise
       .all([
         getEvolution(channel, version, "NARRATE_CONTENT_BY_LANGUAGE_2"),
